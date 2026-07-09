@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>طلبات البيع المعلقة</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        /* تخصيص خلفية الصفحة */
+        :root {
+            --primary-bg: #000000;
+            --secondary-bg: #768002;
+            --accent-color: yellow;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --overlay: rgba(0, 0, 0, 0.6);
+        }
+
+        /* ===== الخلفية المخصصة ===== */
+        body {
+            background:
+                    linear-gradient(var(--overlay), var(--overlay)),
+                        /* ضع رابط صورتك هنا 👇 */
+                    url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053&auto=format&fit=crop')
+                    no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* تأثير تألق عند التحميل */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        header {
+            background: var(--card-bg);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            animation: fadeIn 0.8s ease;
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        /* أنماط الشريط العلوي */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary-bg) 100%);
+            color: var(--accent-color);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.2);
+        }
+
+        .top-bar-left, .top-bar-center, .top-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .featured-text {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .featured-logo {
+            font-size: 1.8rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* العناصر الدائرية */
+        .top-bar-left > div,
+        .top-bar-center > div,
+        .top-bar-right > div {
+            padding: 8px 18px;
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .top-bar-left > div:hover,
+        .top-bar-center > div:hover,
+        .top-bar-right > div:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: #ffd700;
+            color: #ffd700;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        /* الحاوية الرئيسية */
+        .container {
+            max-width: 1300px;
+            margin: 120px auto 40px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow:
+                    0 10px 40px rgba(0,0,0,0.15),
+                    0 0 0 1px rgba(255, 255, 255, 0.1);
+            animation: fadeIn 1s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, var(--accent-color), transparent);
+            border-radius: 0 20px 0 0;
+            opacity: 0.1;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-bottom: 25px;
+            border-bottom: 3px solid #f0f0f0;
+            position: relative;
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 32px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header h1 i {
+            color: var(--secondary-bg);
+            background: linear-gradient(45deg, var(--primary-bg), var(--secondary-bg));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .back-btn {
+            background: linear-gradient(135deg, var(--secondary-bg), var(--primary-bg));
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(118, 128, 2, 0.3);
+        }
+
+        .back-btn:hover {
+            transform: translateX(-5px);
+            box-shadow: 0 6px 20px rgba(118, 128, 2, 0.4);
+        }
+
+        /* شبكة الطلبات */
+        .requests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        /* بطاقة الطلب */
+        .request-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .request-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow:
+                    0 15px 30px rgba(0,0,0,0.15),
+                    0 0 0 1px rgba(118, 128, 2, 0.1);
+        }
+
+        .request-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary-bg), var(--primary-bg));
+        }
+
+        .request-image {
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .request-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .request-card:hover .request-image img {
+            transform: scale(1.1);
+        }
+
+        .request-content {
+            padding: 20px;
+        }
+
+        .request-content h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 22px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .request-content h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--secondary-bg), transparent);
+        }
+
+        .request-details {
+            margin: 15px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-right: 4px solid var(--secondary-bg);
+        }
+
+        .request-details p {
+            margin: 8px 0;
+            color: #555;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .request-details strong {
+            color: var(--primary-bg);
+            min-width: 80px;
+        }
+
+        .request-status {
+            display: inline-block;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-pending {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+        }
+
+        .status-approved {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+        }
+
+        .status-rejected {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+        }
+
+        .request-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .btn-approve, .btn-reject, .btn-delete {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .btn-approve {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+        }
+
+        .btn-reject {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+        }
+
+        .btn-delete {
+            background: linear-gradient(135deg, #7f8c8d, #95a5a6);
+            color: white;
+        }
+
+        .btn-approve:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.4);
+        }
+
+        .btn-reject:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+        }
+
+        .btn-delete:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(127, 140, 141, 0.4);
+        }
+
+        /* حالة عدم وجود طلبات */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #7f8c8d;
+            grid-column: 1 / -1;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            border: 2px dashed #ddd;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .empty-state i {
+            font-size: 70px;
+            margin-bottom: 25px;
+            color: #bdc3c7;
+            opacity: 0.7;
+        }
+
+        .empty-state h2 {
+            font-size: 26px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .empty-state p {
+            font-size: 16px;
+            max-width: 500px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* ===== تصميم متجاوب ===== */
+        @media (max-width: 1200px) {
+            .container {
+                margin: 120px 20px 40px;
+                padding: 25px;
+            }
+
+            .requests-grid {
+                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            }
+        }
+
+        @media (max-width: 992px) {
+            .top-bar {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px;
+            }
+
+            .top-bar-left, .top-bar-center, .top-bar-right {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .requests-grid {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .requests-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .request-actions {
+                flex-direction: column;
+            }
+
+            .featured-text {
+                font-size: 1.1rem;
+            }
+
+            .header h1 {
+                font-size: 26px;
+            }
+
+            .container {
+                margin: 140px 15px 30px;
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .top-bar > div > div {
+                padding: 6px 12px;
+                font-size: 14px;
+            }
+
+            .back-btn {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+
+            .request-details p {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            body {
+                padding: 10px;
+            }
+        }
+
+        /* تأثيرات إضافية */
+        .request-card .request-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(to top, rgba(0,0,0,0.2), transparent);
+        }
+
+        /* مؤشر التحميل */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            font-size: 18px;
+            color: var(--secondary-bg);
+        }
+
+        .loading i {
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* رسائل التنبيه */
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: #27ae60;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 1001;
+            animation: slideIn 0.3s ease;
+            display: none;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<header>
+    <div class="top-bar">
+        <div class="top-bar-left">
+            <div class="featured-text">
+                <span class="featured-logo">🏆</span>
+                عقارات السلطان
+            </div>
+        </div>
+
+        <div class="top-bar-center">
+            <div class="logo-section" onclick="goToHome()">
+                <div class="home-logo">🏠</div>
+                <span class="home-text">الصفحة الرئيسية</span>
+            </div>
+            <div class="shopping-section" onclick="goToShoppingPage()">
+                <div class="shopping-logo">🛒</div>
+                <span class="shopping-text">التسوق</span>
+            </div>
+        </div>
+
+        <div class="top-bar-right">
+            <div class="logout-section" id="logout-section">
+                <div class="logout-logo">🚪</div>
+                <span class="logout-text">تسجيل الخروج</span>
+            </div>
+            <div class="account-section" onclick="goToLoginPage()">
+                <div class="account-logo">👤</div>
+                <span class="account-text">إنشاء حساب</span>
+            </div>
+        </div>
+    </div>
+</header>
+<body>
+<!-- إشعارات -->
+<div class="notification" id="notification"></div>
+
+<div class="container">
+    <div class="header">
+        <h1><i class="fas fa-clipboard-list"></i> طلبات البيع المعلقة</h1>
+        <button class="back-btn" onclick="window.location.href='order.html'">
+            <i class="fas fa-arrow-right"></i> العودة للوحة التحكم
+        </button>
+    </div>
+
+    <div class="requests-grid" id="requestsGrid">
+        <div class="loading">
+            <i class="fas fa-spinner"></i> جارٍ تحميل الطلبات...
+        </div>
+    </div>
+</div>
+
+<script>
+    // دالة لإظهار الإشعارات
+    function showNotification(message, type = 'success') {
+        const notification = document.getElementById('notification');
+        notification.textContent = message;
+        notification.style.background = type === 'success' ? '#27ae60' : '#e74c3c';
+        notification.style.display = 'block';
+
+        setTimeout(() => {
+            notification.style.display = 'none';
+        }, 3000);
+    }
+
+    // تحميل طلبات البيع
+    function loadSellRequests() {
+        const requestsGrid = document.getElementById('requestsGrid');
+        const sellRequests = JSON.parse(localStorage.getItem('sellRequests')) || [];
+
+        setTimeout(() => {
+            if (sellRequests.length === 0) {
+                requestsGrid.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-inbox"></i>
+                        <h2>لا توجد طلبات بيع معلقة</h2>
+                        <p>لم يتم إرسال أي طلبات بيع بعد. عندما يتم إرسال طلبات جديدة ستظهر هنا.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '';
+            sellRequests.forEach(request => {
+                const statusClass = `status-${request.status}`;
+                html += `
+                    <div class="request-card">
+                        <div class="request-image">
+                            <img src="${request.image || 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=400&h=250&fit=crop'}" alt="صورة العقار" loading="lazy">
+                        </div>
+                        <div class="request-content">
+                            <span class="request-status ${statusClass}">${getStatusText(request.status)}</span>
+                            <h3>طلب بيع عقار</h3>
+                            <div class="request-details">
+                                <p><strong>السعر:</strong> $${formatNumber(request.price)}</p>
+                                <p><strong>الموقع:</strong> ${request.location}</p>
+                                <p><strong>الوصف:</strong> ${request.description.substring(0, 100)}${request.description.length > 100 ? '...' : ''}</p>
+                                <p><strong>المستخدم:</strong> ${request.userInfo || 'زائر'}</p>
+                                <p><strong>التاريخ:</strong> ${new Date(request.date).toLocaleDateString('ar-SA')}</p>
+                            </div>
+                            ${request.status === 'pending' ? `
+                            <div class="request-actions">
+                                <button class="btn-approve" onclick="approveRequest(${request.id})">
+                                    <i class="fas fa-check"></i> موافقة
+                                </button>
+                                <button class="btn-reject" onclick="rejectRequest(${request.id})">
+                                    <i class="fas fa-times"></i> رفض
+                                </button>
+                                <button class="btn-delete" onclick="deleteRequest(${request.id})">
+                                    <i class="fas fa-trash"></i> حذف
+                                </button>
+                            </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+
+            requestsGrid.innerHTML = html;
+        }, 800); // تأخير لمحاكاة التحميل
+    }
+
+    function formatNumber(num) {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    function getStatusText(status) {
+        const statusMap = {
+            'pending': 'قيد الانتظار',
+            'approved': 'تمت الموافقة',
+            'rejected': 'مرفوض'
+        };
+        return statusMap[status] || status;
+    }
+
+    // الموافقة على الطلب
+    function approveRequest(requestId) {
+        if (confirm('هل تريد الموافقة على هذا الطلب؟ سيتم إضافة العقار لقاعدة البيانات.')) {
+            const sellRequests = JSON.parse(localStorage.getItem('sellRequests')) || [];
+            const requestIndex = sellRequests.findIndex(req => req.id == requestId);
+
+            if (requestIndex !== -1) {
+                sellRequests[requestIndex].status = 'approved';
+                localStorage.setItem('sellRequests', JSON.stringify(sellRequests));
+                addPropertyToDatabase(sellRequests[requestIndex]);
+                loadSellRequests();
+                showNotification('تمت الموافقة على الطلب بنجاح', 'success');
+            }
+        }
+    }
+
+    // رفض الطلب
+    function rejectRequest(requestId) {
+        if (confirm('هل تريد رفض هذا الطلب؟')) {
+            const sellRequests = JSON.parse(localStorage.getItem('sellRequests')) || [];
+            const requestIndex = sellRequests.findIndex(req => req.id == requestId);
+
+            if (requestIndex !== -1) {
+                sellRequests[requestIndex].status = 'rejected';
+                localStorage.setItem('sellRequests', JSON.stringify(sellRequests));
+                loadSellRequests();
+                showNotification('تم رفض الطلب', 'success');
+            }
+        }
+    }
+
+    // حذف الطلب
+    function deleteRequest(requestId) {
+        if (confirm('هل تريد حذف هذا الطلب نهائياً؟')) {
+            let sellRequests = JSON.parse(localStorage.getItem('sellRequests')) || [];
+            sellRequests = sellRequests.filter(req => req.id != requestId);
+            localStorage.setItem('sellRequests', JSON.stringify(sellRequests));
+            loadSellRequests();
+            showNotification('تم حذف الطلب', 'success');
+        }
+    }
+
+    // إضافة العقار إلى قاعدة البيانات
+    async function addPropertyToDatabase(request) {
+        try {
+            // محاكاة API call
+            await new Promise(resolve => setTimeout(resolve, 1000));
+
+            // هنا يمكنك إضافة الكود الحقيقي لإرسال البيانات
+            console.log('تمت إضافة العقار:', request);
+
+        } catch (error) {
+            console.error('خطأ في إضافة العقار:', error);
+            showNotification('حدث خطأ أثناء إضافة العقار', 'error');
+        }
+    }
+
+    // دالات التنقل
+    function goToHome() {
+        window.location.href = 'index.html';
+    }
+
+    function goToShoppingPage() {
+        window.location.href = 'shopping.html';
+    }
+
+    function goToLoginPage() {
+        window.location.href = 'login.html';
+    }
+
+    // تسجيل الخروج
+    document.getElementById('logout-section').addEventListener('click', function() {
+        if (confirm('هل تريد تسجيل الخروج؟')) {
+            localStorage.removeItem('userToken');
+            window.location.href = 'login.html';
+        }
+    });
+
+    // عند تحميل الصفحة
+    document.addEventListener('DOMContentLoaded', loadSellRequests);
+</script>
+</body>
+</html>

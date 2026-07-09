@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - Real Estate</title>
+    <link rel="stylesheet" type="text/css" href="CssFile/admin.css">
+</head>
+<body>
+<div class="admin-container">
+    <!-- رأس لوحة التحكم -->
+    <div class="admin-header">
+        <h1>لوحة تحكم المسؤول</h1>
+        <p>مرحباً بك، حمودي!</p>
+    </div>
+
+    <!-- إجراءات المسؤول -->
+    <div class="admin-actions">
+        <div class="action-card" onclick="manageProperties()">
+            <div class="action-icon">🏠</div>
+            <div class="action-title">إدارة العقارات</div>
+            <div class="action-description">عرض، تعديل وحذف العقارات</div>
+        </div>
+
+        <div class="action-card" onclick="manageUsers()">
+            <div class="action-icon">👥</div>
+            <div class="action-title">إدارة المستخدمين</div>
+            <div class="action-description">عرض وإدارة حسابات المستخدمين</div>
+        </div>
+
+        <div class="action-card" onclick="viewReports()">
+            <div class="action-icon">📊</div>
+            <div class="action-title">التقارير والإحصائيات</div>
+            <div class="action-description">عرض تقارير الأداء والإحصائيات</div>
+        </div>
+
+        <div class="action-card" onclick="addNewProperty()">
+            <div class="action-icon">➕</div>
+            <div class="action-title">إضافة عقار جديد</div>
+            <div class="action-description">إضافة عقار جديد للموقع</div>
+        </div>
+    </div>
+
+    <!-- قسم الإعدادات -->
+    <div style="text-align: center; margin: 30px 0;">
+        <button class="logout-btn" onclick="logoutAdmin()">تسجيل الخروج</button>
+    </div>
+
+    <div class="back-to-home">
+        <button class="back-btn" onclick="goToHome()">العودة للصفحة الرئيسية</button>
+    </div>
+</div>
+
+<script type="text/javascript" src="JavaScript_file/admin.js"></script>
+
+</body>
+</html>
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="ar" dir="rtl">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>لوحة التحكم - Real Estate</title>-->
+<!--    <link rel="stylesheet" type="text/css" href="CssFile/admin.css">-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="admin-container">-->
+<!--    &lt;!&ndash; رأس لوحة التحكم &ndash;&gt;-->
+<!--    <div class="admin-header">-->
+<!--        <h1>لوحة تحكم المسؤول</h1>-->
+<!--        <p>مرحباً بك، حمودي!</p>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; إحصائيات سريعة &ndash;&gt;-->
+<!--    <div class="admin-stats">-->
+<!--        <div class="stat-card">-->
+<!--            <div class="stat-number" id="total-properties">0</div>-->
+<!--            <div class="stat-label">إجمالي العقارات</div>-->
+<!--        </div>-->
+<!--        <div class="stat-card">-->
+<!--            <div class="stat-number" id="total-users">0</div>-->
+<!--            <div class="stat-label">إجمالي المستخدمين</div>-->
+<!--        </div>-->
+<!--        <div class="stat-card">-->
+<!--            <div class="stat-number" id="total-reviews">0</div>-->
+<!--            <div class="stat-label">إجمالي التقييمات</div>-->
+<!--        </div>-->
+<!--        <div class="stat-card">-->
+<!--            <div class="stat-number">$<span id="total-value">0</span></div>-->
+<!--            <div class="stat-label">القيمة الإجمالية</div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; إجراءات المسؤول &ndash;&gt;-->
+<!--    <div class="admin-actions">-->
+<!--        <div class="action-card" onclick="manageProperties()">-->
+<!--            <div class="action-icon">🏠</div>-->
+<!--            <div class="action-title">إدارة العقارات</div>-->
+<!--            <div class="action-description">عرض، تعديل وحذف العقارات</div>-->
+<!--        </div>-->
+
+<!--        <div class="action-card" onclick="manageUsers()">-->
+<!--            <div class="action-icon">👥</div>-->
+<!--            <div class="action-title">إدارة المستخدمين</div>-->
+<!--            <div class="action-description">عرض وإدارة حسابات المستخدمين</div>-->
+<!--        </div>-->
+
+<!--        <div class="action-card" onclick="viewReports()">-->
+<!--            <div class="action-icon">📊</div>-->
+<!--            <div class="action-title">التقارير والإحصائيات</div>-->
+<!--            <div class="action-description">عرض تقارير الأداء والإحصائيات</div>-->
+<!--        </div>-->
+
+<!--        <div class="action-card" onclick="addNewProperty()">-->
+<!--            <div class="action-icon">➕</div>-->
+<!--            <div class="action-title">إضافة عقار جديد</div>-->
+<!--            <div class="action-description">إضافة عقار جديد للموقع</div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; قسم الإعدادات &ndash;&gt;-->
+<!--    <div style="text-align: center; margin: 30px 0;">-->
+<!--        <button class="logout-btn" onclick="logoutAdmin()">تسجيل الخروج</button>-->
+<!--    </div>-->
+
+<!--    <div class="back-to-home">-->
+<!--        <button class="back-btn" onclick="goToHome()">العودة للصفحة الرئيسية</button>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<script>-->
+<!--    // دالة للعودة للصفحة الرئيسية-->
+<!--    function goToHome() {-->
+<!--        window.location.href = 'HW1.html';-->
+<!--    }-->
+
+<!--    // دالة تسجيل الخروج-->
+<!--    function logoutAdmin() {-->
+<!--        localStorage.removeItem('currentUser');-->
+<!--        alert('تم تسجيل الخروج بنجاح');-->
+<!--        window.location.href = 'HW1.html';-->
+<!--    }-->
+
+<!--    // دالات إدارة المحتوى-->
+<!--    function manageProperties() {-->
+<!--        window.location.href = 'manage-properties.html';-->
+<!--    }-->
+
+<!--    function manageUsers() {-->
+<!--        alert('سيتم فتح صفحة إدارة المستخدمين قريباً');-->
+<!--        // window.location.href = 'manage-users.html';-->
+<!--    }-->
+
+<!--    function viewReports() {-->
+<!--        alert('سيتم فتح صفحة التقارير قريباً');-->
+<!--        // window.location.href = 'reports.html';-->
+<!--    }-->
+
+<!--    function addNewProperty() {-->
+<!--        alert('سيتم فتح نموذج إضافة عقار جديد قريباً');-->
+<!--        // window.open('add-property.html', '_blank');-->
+<!--    }-->
+
+<!--    // // تحميل الإحصائيات-->
+<!--    // document.addEventListener('DOMContentLoaded', function() {-->
+<!--    //     // محاكاة بيانات الإحصائيات-->
+<!--    //     document.getElementById('total-properties').textContent = '30';-->
+<!--    //     document.getElementById('total-users').textContent = '15';-->
+<!--    //     document.getElementById('total-reviews').textContent = '8';-->
+<!--    //     document.getElementById('total-value').textContent = '12,450,000';-->
+<!--    // }-->
+<!--    //     // التحقق من صلاحية المسؤول-->
+<!--    //     const currentUser = JSON.parse(localStorage.getItem('currentUser'));-->
+<!--    //     if (!currentUser || currentUser.email !=="hamody2004@gmail.com" || currentUser.password !== '2004') {-->
+<!--    //         alert('ليس لديك صلاحية الوصول لهذه الصفحة');-->
+<!--    //         window.location.href = 'HW1.html';-->
+<!--    //     }-->
+<!--    // });-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->

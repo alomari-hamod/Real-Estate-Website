@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Management Page-صفحة الادارة</title>
+    <link rel="stylesheet" type="text/css" href="CssFile/management.css">
+</head>
+<body>
+<div class="management-container">
+    <!-- رأس صفحة الإدارة -->
+    <div class="management-header">
+        <h1>إدارة العقارات</h1>
+        <p>عرض وتعديل وحذف العقارات في الموقع</p>
+    </div>
+
+    <!-- شريط الإجراءات والبحث -->
+    <div class="management-actions">
+        <div class="search-box">
+            <input type="text" id="search-input" placeholder="ابحث عن عقار...">
+            <button onclick="searchProperties()">بحث</button>
+        </div>
+
+        <div class="filter-section">
+            <select id="type-filter" onchange="filterProperties()">
+                <option value="all">جميع الأنواع</option>
+                <option value="فيلا">فيلا</option>
+                <option value="شقة">شقة</option>
+                <option value="منزل">منزل</option>
+                <option value="أرض">أرض</option>
+                <option value="استوديو">استوديو</option>
+                <option value="بنتهاوس">بنتهاوس</option>
+                <option value="كابينة">كابينة</option>
+                <option value="منزل ريفي">منزل ريفي</option>
+                <option value="منزل شاطئي">منزل شاطئي</option>
+            </select>
+
+            <select id="price-filter" onchange="filterProperties()">
+                <option value="all">جميع الأسعار</option>
+                <option value="100000">أقل من $100,000</option>
+                <option value="300000">$100,000 - $300,000</option>
+                <option value="500000">$300,000 - $500,000</option>
+                <option value="1000000">أكثر من $500,000</option>
+            </select>
+        </div>
+
+        <button class="add-property-btn" onclick="openAddModal()">
+            <span>➕</span> إضافة عقار جديد
+        </button>
+    </div>
+
+    <!-- شبكة عرض العقارات -->
+    <div class="properties-grid" id="properties-grid">
+        <!-- سيتم إضافة العقارات هنا عبر JavaScript -->
+    </div>
+
+    <!-- زر العودة -->
+    <button class="back-btn" onclick="goBack()">
+        <span>↩</span> العودة إلى لوحة التحكم
+    </button>
+</div>
+
+<!-- نافذة التعديل/الإضافة -->
+<div id="property-modal" class="modal">
+    <div class="modal-content">
+        <button class="close-modal" onclick="closeModal()">×</button>
+        <h2 id="modal-title">تعديل العقار</h2>
+
+        <form id="property-form">
+            <input type="hidden" id="property-id">
+
+            <div class="form-group">
+                <label for="property-title">عنوان العقار</label>
+                <input type="text" id="property-title" required>
+            </div>
+
+            <div class="form-group">
+                <label for="property-location">الموقع</label>
+                <input type="text" id="property-location" required>
+            </div>
+
+            <div class="form-group">
+                <label for="property-description">الوصف</label>
+                <textarea id="property-description" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="property-price">السعر ($)</label>
+                <input type="number" id="property-price" min="0" required>
+            </div>
+
+            <div class="form-group">
+                <label for="property-type">نوع العقار</label>
+                <select id="property-type" required>
+                    <option value="فيلا">فيلا</option>
+                    <option value="شقة">شقة</option>
+                    <option value="منزل">منزل</option>
+                    <option value="أرض">أرض</option>
+                    <option value="استوديو">استوديو</option>
+                    <option value="بنتهاوس">بنتهاوس</option>
+                    <option value="كابينة">كابينة</option>
+                    <option value="منزل ريفي">منزل ريفي</option>
+                    <option value="منزل شاطئي">منزل شاطئي</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="property-image">رابط الصورة</label>
+                <input type="url" id="property-image" required>
+                <div class="image-preview" id="image-preview">
+                    <img id="preview-img" src="" alt="معاينة الصورة">
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="cancel-btn" onclick="closeModal()">إلغاء</button>
+                <button type="submit" class="save-btn">حفظ التغييرات</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript" src="JavaScript_file/management.js"></script>
+</body>
+</html>

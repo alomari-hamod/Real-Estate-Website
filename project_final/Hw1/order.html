@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم | إدارة العقارات</title>
+    <link rel="stylesheet" href="CssFile/order.css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ===== الشريط العلوي ===== -->
+<header>
+    <div class="top-bar">
+        <!-- الجزء الأيمن (الخصائص المميزة) -->
+        <div class="top-bar-left">
+            <div class="featured-text">
+                <span class="featured-logo">🏆</span>
+                عقارات السلطان
+            </div>
+        </div>
+
+        <!-- الجزء الأوسط (الصفحة الرئيسية والتسوق) -->
+        <div class="top-bar-center">
+            <div class="logo-section" onclick="goToHome()">
+                <div class="home-logo">🏠</div>
+                <span class="home-text">الصفحة الرئيسية</span>
+            </div>
+            <div class="shopping-section" onclick="goToShoppingPage()">
+                <div class="shopping-logo">🛒</div>
+                <span class="shopping-text">التسوق</span>
+            </div>
+        </div>
+
+        <!-- الجزء الأيسر (الحساب) -->
+        <div class="top-bar-right">
+            <div class="account-section" onclick="goToLoginPage()">
+                <div class="account-logo">👤</div>
+                <span class="account-text">إنشاء حساب</span>
+            </div>
+            <div class="logout-section" id="logout-section">
+                <div class="logout-logo">🚪</div>
+                <span class="logout-text">تسجيل الخروج</span>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- ===== المحتوى الرئيسي ===== -->
+<main class="dashboard-container">
+    <!-- ===== العنوان الرئيسي ===== -->
+    <div class="dashboard-header">
+        <div class="header-left">
+            <h1 class="main-title">
+                <i class="fas fa-building"></i>
+                لوحة تحكم إدارة العقارات
+            </h1>
+            <p class="subtitle">عرض وتعديل وإدارة العقارات في الموقع</p>
+        </div>
+        <div class="header-right">
+            <div class="date-display">
+                <i class="far fa-calendar-alt"></i>
+                <span id="current-date">اليوم: 12 ديسمبر 2024</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== شريط الإجراءات السريعة ===== -->
+    <div class="quick-actions-bar">
+        <button class="quick-action-btn btn-primary" onclick="showAddPropertyModal()">
+            <i class="fas fa-plus-circle"></i>
+            إضافة عقار جديد
+        </button>
+        <button class="quick-action-btn btn-secondary" id="filter-properties-btn">
+            <i class="fas fa-filter"></i>
+            جميع العقارات
+        </button>
+        <button class="quick-action-btn btn-info">
+            <i class="fas fa-home"></i>
+            جميع الأبواغ
+        </button>
+
+        <!-- شريط البحث -->
+        <div class="search-container">
+            <i class="fas fa-search"></i>
+            <input type="text" class="search-input" placeholder="بحث عن عقار...">
+            <button class="search-btn" onclick="performSearch()">
+                <i class="fas fa-search"></i>
+                بحث
+            </button>
+        </div>
+
+        <button class="quick-action-btn btn-warning">
+            <i class="fas fa-chart-bar"></i>
+            التقارير
+        </button>
+
+        <button class="quick-action-btn btn-warning" onclick="window.location.href='sell-requests.html'">
+            <i class="fas fa-clipboard-list"></i>
+            طلبات البيع
+        </button>
+    </div>
+
+    <!-- ===== قسم الإحصائيات ===== -->
+    <section class="stats-section">
+        <div class="stats-grid">
+            <!-- إجمالي العقارات -->
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-building"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>إجمالي العقارات</h3>
+                    <p class="stat-number">47</p>
+                    <div class="stat-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 85%"></div>
+                        </div>
+                        <span class="progress-text">85% معدل الإشغال</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- العقارات المميزة -->
+            <div class="stat-card featured">
+                <div class="stat-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>العقارات المميزة</h3>
+                    <p class="stat-number">12</p>
+                    <div class="stat-tags">
+                        <span class="tag">VIP</span>
+                        <span class="tag">Premium</span>
+                        <span class="tag">Luxury</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- إجمالي القيمة -->
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-dollar-sign"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>إجمالي القيمة</h3>
+                    <p class="stat-number">$8.2M</p>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>+12.5% عن الشهر الماضي</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- العقارات المباعة -->
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>العقارات المباعة</h3>
+                    <p class="stat-number">24</p>
+                    <div class="stat-change positive">
+                        <i class="fas fa-chart-line"></i>
+                        <span>+18% هذا العام</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== قسم قائمة العقارات ===== -->
+    <section class="properties-section">
+        <div class="section-header">
+            <h2><i class="fas fa-list"></i> قائمة العقارات الحالية</h2>
+            <div class="view-options">
+                <button class="view-option active" onclick="changeViewMode('grid')"><i class="fas fa-th-large"></i></button>
+                <button class="view-option" onclick="changeViewMode('list')"><i class="fas fa-list"></i></button>
+                <button class="view-option" onclick="changeViewMode('map')"><i class="fas fa-map-marker-alt"></i></button>
+            </div>
+        </div>
+
+        <div class="properties-grid" id="properties-grid">
+            <!-- سيتم تحميل العقارات ديناميكياً -->
+        </div>
+
+        <!-- زر عرض المزيد -->
+        <div class="load-more-container">
+            <button class="load-more-btn" onclick="loadAllProperties()">
+                <i class="fas fa-download"></i>
+                عرض جميع العقارات
+            </button>
+        </div>
+    </section>
+
+    <!-- ===== قسم الخريطة المصغرة ===== -->
+    <section class="map-section">
+        <div class="section-header">
+            <h2><i class="fas fa-map"></i> توزيع العقارات على الخريطة</h2>
+        </div>
+        <div class="mini-map">
+            <div class="map-placeholder">
+                <i class="fas fa-map-marked-alt"></i>
+                <p>خريطة تفاعلية لعرض مواقع العقارات</p>
+                <button class="btn-secondary" onclick="showMapView()">
+                    <i class="fas fa-expand"></i>
+                    عرض الخريطة الكاملة
+                </button>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- ===== نافذة التصفية ===== -->
+<div class="filter-modal" id="filter-modal">
+    <div class="filter-content">
+        <div class="filter-header">
+            <h3><i class="fas fa-filter"></i> تصفية العقارات</h3>
+            <button class="close-filter" onclick="closeFilterModal()">&times;</button>
+        </div>
+        <div class="filter-body">
+            <div class="filter-section">
+                <h4><i class="fas fa-home"></i> نوع العقار</h4>
+                <div class="filter-options">
+                    <label class="filter-option">
+                        <input type="checkbox" name="property-type" value="شقة" checked>
+                        <span>شقة</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" name="property-type" value="فيلا" checked>
+                        <span>فيلا</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" name="property-type" value="استوديو" checked>
+                        <span>استوديو</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" name="property-type" value="منزل" checked>
+                        <span>منزل</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" name="property-type" value="أرض" checked>
+                        <span>أرض</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" name="property-type" value="مكتب" checked>
+                        <span>مكتب</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h4><i class="fas fa-tag"></i> الحالة</h4>
+                <div class="filter-options">
+                    <label class="filter-option">
+                        <input type="checkbox" name="property-status" value="للبيع" checked>
+                        <span>للبيع</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" name="property-status" value="للإيجار" checked>
+                        <span>للإيجار</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" name="property-status" value="مباع" checked>
+                        <span>مباع</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" name="property-status" value="مؤجر" checked>
+                        <span>مؤجر</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h4><i class="fas fa-dollar-sign"></i> نطاق السعر</h4>
+                <div class="price-range">
+                    <input type="range" id="price-min" min="0" max="1000000" value="0" step="10000">
+                    <input type="range" id="price-max" min="0" max="1000000" value="1000000" step="10000">
+                    <div class="price-labels">
+                        <span id="min-price-label">$0</span>
+                        <span id="max-price-label">$1,000,000</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h4><i class="fas fa-bed"></i> عدد الغرف</h4>
+                <div class="filter-options">
+                    <label class="filter-option">
+                        <input type="checkbox" name="rooms" value="1">
+                        <span>1 غرفة</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" name="rooms" value="2">
+                        <span>2 غرف</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" name="rooms" value="3">
+                        <span>3 غرف</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" name="rooms" value="4">
+                        <span>4 غرف فأكثر</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="filter-footer">
+            <button class="btn-secondary" onclick="closeFilterModal()">إلغاء</button>
+            <button class="btn-primary" onclick="applyFilters()">تطبيق التصفية</button>
+            <button class="btn-warning" onclick="resetFilters()">إعادة التعيين</button>
+        </div>
+    </div>
+</div>
+
+<!-- رابط ملف JavaScript -->
+<script src="JavaScript_file/order.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="ar" dir="rtl">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>سلة الطلبات | المتجر</title>-->
+<!--    <link rel="stylesheet" href="CssFile/order.css">-->
+
+<!--</head>-->
+<!--<body>-->
+
+<!--&lt;!&ndash; ===== الشريط العلوي ===== &ndash;&gt;-->
+<!--<header>-->
+<!--    <div class="top-bar">-->
+<!--        &lt;!&ndash; الجزء الأيمن (الخصائص المميزة) &ndash;&gt;-->
+<!--        <div class="top-bar-left">-->
+<!--            <div class="featured-text">-->
+<!--                <span class="featured-logo">🏆</span>-->
+<!--                عقارات مميزة-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; الجزء الأوسط (الصفحة الرئيسية والتسوق) &ndash;&gt;-->
+<!--        <div class="top-bar-center">-->
+<!--            <div class="logo-section" onclick="goToHome()">-->
+<!--                <div class="home-logo">🏠</div>-->
+<!--                <span class="home-text">الصفحة الرئيسية</span>-->
+<!--            </div>-->
+<!--            <div class="shopping-section" onclick="goToShoppingPage()">-->
+<!--                <div class="shopping-logo">🛒</div>-->
+<!--                <span class="shopping-text">التسوق</span>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; الجزء الأيسر (الحساب) &ndash;&gt;-->
+<!--        <div class="top-bar-right">-->
+<!--            <div class="account-section" onclick="goToLoginPage()">-->
+<!--                <div class="account-logo">👤</div>-->
+<!--                <span class="account-text">إنشاء حساب</span>-->
+<!--            </div>-->
+<!--            <div class="logout-section" id="logout-section">-->
+<!--                <div class="logout-logo">🚪</div>-->
+<!--                <span class="logout-text">تسجيل الخروج</span>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</header>-->
+<!--<script type="text/javascript" src="JavaScript_file/order.js"></script>-->
+
+<!--</body>-->
+<!--</html>-->

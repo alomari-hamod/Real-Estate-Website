@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جميع العقارات - Real Estate</title>
+    <link rel="stylesheet" type="text/css" href="CssFile/shopping.css">
+</head>
+<body>
+
+<!-- الشريط العلوي -->
+<header>
+    <div class="top-bar">
+        <div class="top-bar-left">
+            <div class="featured-text">
+                <span class="featured-logo">🏆</span>
+                عقارات السلطان
+            </div>
+        </div>
+
+        <div class="top-bar-center">
+            <div class="logo-section" onclick="goToHome()">
+                <div class="home-logo">🏠</div>
+                <span class="home-text">الصفحة الرئيسية</span>
+            </div>
+            <div class="shopping-section" onclick="goToShoppingPage()">
+                <div class="shopping-logo">🛒</div>
+                <span class="shopping-text">التسوق</span>
+            </div>
+        </div>
+
+        <div class="top-bar-right">
+            <!-- سلة التسوق -->
+            <div class="cart-section" onclick="toggleCart()">
+                <div class="cart-logo">🛒</div>
+                <span class="cart-text">سلة التسوق</span>
+                <span class="cart-badge" id="cart-badge">0</span>
+            </div>
+
+            <div class="account-section" onclick="goToLoginPage()">
+                <div class="account-logo">👤</div>
+                <span class="account-text">إنشاء حساب</span>
+            </div>
+            <div class="logout-section" id="logout-section">
+                <div class="logout-logo">🚪</div>
+                <span class="logout-text">تسجيل الخروج</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة سلة التسوق المنبثقة -->
+    <div class="cart-popup" id="cart-popup">
+        <div class="cart-popup-header">
+            <h3>سلة التسوق</h3>
+            <button class="close-cart-btn" onclick="closeCart()">✕</button>
+        </div>
+        <div class="cart-items-container" id="cart-items-container">
+            <!-- ستعرض هنا عناصر السلة -->
+            <div class="empty-cart-message" id="empty-cart-message">
+                سلة التسوق فارغة
+            </div>
+        </div>
+        <div class="cart-popup-footer">
+            <div class="cart-total">
+                <span>الإجمالي:</span>
+                <span class="total-price" id="cart-total-price">$0.00</span>
+            </div>
+            <button class="checkout-button" onclick="checkout()">إتمام الشراء</button>
+        </div>
+    </div>
+</header>
+
+<!-- قسم جميع العقارات -->
+<div class="main-content">
+    <!-- محرك البحث -->
+    <div class="search-container">
+        <div class="search-box">
+            <input type="text" id="search-input" placeholder="ابحث عن عقار...">
+            <select id="type-filter">
+                <option value="all">جميع الأنواع</option>
+                <option value="فيلا">فيلا</option>
+                <option value="شقة">شقة</option>
+                <option value="منزل">منزل</option>
+                <option value="استوديو">استوديو</option>
+                <option value="بنتهاوس">بنتهاوس</option>
+            </select>
+            <select id="price-filter">
+                <option value="all">جميع الأسعار</option>
+                <option value="100000">أقل من $100,000</option>
+                <option value="300000">$100,000 - $300,000</option>
+                <option value="500000">$300,000 - $500,000</option>
+                <option value="1000000">أكثر من $500,000</option>
+            </select>
+            <button class="search-btn" onclick="searchProperties()">بحث</button>
+        </div>
+    </div>
+
+    <section class="properties container">
+        <h2 class="section-title">جميع العقارات المتاحة</h2>
+
+        <!-- فلترة العقارات -->
+        <div class="filter-section">
+            <select id="property-filter" onchange="filterProperties()">
+                <option value="all">جميع الأنواع</option>
+                <option value="فيلا">فيلا</option>
+                <option value="شقة">شقة</option>
+                <option value="منزل">منزل</option>
+                <option value="أرض">أرض</option>
+                <option value="استوديو">استوديو</option>
+                <option value="بنتهاوس">بنتهاوس</option>
+                <option value="كابينة">كابينة</option>
+                <option value="منزل ريفي">منزل ريفي</option>
+                <option value="منزل شاطئي">منزل شاطئي</option>
+            </select>
+        </div>
+
+        <div class="properties-grid" id="all-properties-grid">
+            <!-- سيتم إضافة العقارات هنا عبر JavaScript -->
+        </div>
+
+        <div class="back-to-home">
+            <button class="back-btn" onclick="goToHome()">العودة للصفحة الرئيسية</button>
+        </div>
+    </section>
+</div>
+<script type="text/javascript" src="JavaScript_file/shopping.js"></script>
+
+
+
+
+<!-- ===== لسماح بادخال صور الى صفحة الشوبينغ===== -->
+<!-- ===== Property Luxury Modal ===== -->
+<div class="lux-modal" id="propertyModal">
+    <div class="lux-overlay" onclick="closePropertyModal()"></div>
+
+    <div class="lux-container">
+        <button class="lux-close" onclick="closePropertyModal()">✕</button>
+
+        <!-- LEFT: IMAGES -->
+        <div class="lux-left">
+            <div class="lux-main-image">
+                <img id="modalMainImage" src="">
+                <button class="lux-nav left" onclick="prevImage()">❮</button>
+                <button class="lux-nav right" onclick="nextImage()">❯</button>
+            </div>
+
+            <div class="lux-thumbnails" id="modalThumbnails"></div>
+        </div>
+
+        <!-- RIGHT: INFO -->
+        <div class="lux-right">
+            <h2 id="modalTitle"></h2>
+            <p class="lux-location" id="modalLocation"></p>
+
+            <div class="lux-price" id="modalPrice"></div>
+
+            <div class="lux-tags">
+                <span id="modalType"></span>
+                <span id="modalSaleType"></span>
+            </div>
+
+            <p class="lux-description" id="modalDescription"></p>
+
+            <button class="lux-cart-btn">
+                🛒 إضافة إلى السلة
+            </button>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate Company - Find Your Home</title>
+    <link rel="stylesheet" type="text/css" href="CssFile/home.css">
+</head>
+<body>
+
+<!-- الشريط العلوي -->
+<header>
+    <div class="top-bar">
+        <div class="top-bar-left">
+            <div class="featured-text">
+                <span class="featured-logo">🏆</span>
+                عقارات السلطان
+            </div>
+        </div>
+
+        <div class="top-bar-center">
+            <div class="logo-section" onclick="goToHome()">
+                <div class="home-logo">🏠</div>
+                <span class="home-text">الصفحة الرئيسية</span>
+            </div>
+            <div class="shopping-section" onclick="goToShoppingPage()">
+                <div class="shopping-logo">🛒</div>
+                <span class="shopping-text">التسوق</span>
+            </div>
+
+        </div>
+
+        <div class="top-bar-right">
+            <div class="account-section" onclick="goToLoginPage()">
+                <div class="account-logo">👤</div>
+                <span class="account-text">إنشاء حساب</span>
+            </div>
+            <div class="logout-section" id="logout-section">
+                <div class="logout-logo">🚪</div>
+                <span class="logout-text">تسجيل الخروج</span>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Hero Section -->
+<section class="hero" id="home">
+    <div class="container">
+        <!-- Main Image -->
+        <div class="hero-image" id="heroImage">
+            <div class="arabic-text">استثمر في مستقبلك</div>
+            <div class="arabic-subtext">امتلك منزلك في أفضل المواقع</div>
+        </div>
+    </div>
+</section>
+
+<!-- Main Content with Black Background -->
+<div class="main-content">
+    <!-- Search Section -->
+    <div class="container">
+        <section class="search-section">
+            <div class="search-tabs">
+                <button class="tab active" onclick="switchTab('buy')">أريد الشراء</button>
+                <button class="tab" onclick="switchTab('rent')">أريد الإيجار</button>
+                <button class="tab" onclick="switchTab('sell')">أريد البيع</button>
+            </div>
+
+            <!-- Buy Search Form -->
+            <div id="buy-form" class="search-form">
+                <div class="form-group">
+                    <label for="property-type">نوع العقار</label>
+                    <select id="property-type">
+                        <option>أي نوع</option>
+                        <option>شقة</option>
+                        <option>فيلا</option>
+                        <option>منزل</option>
+                        <option>أرض</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="location">الموقع</label>
+                    <input type="text" id="location" placeholder="الشارع، المدينة، الرمز البريدي...">
+                </div>
+                <button class="search-btn" onclick="searchBuy()">بحث</button>
+            </div>
+
+            <!-- Rent Search Form -->
+            <div id="rent-form" class="search-form" style="display: none;">
+                <div class="form-group">
+                    <label for="rent-property-type">نوع العقار</label>
+                    <select id="rent-property-type">
+                        <option>أي نوع</option>
+                        <option>شقة</option>
+                        <option>فيلا</option>
+                        <option>منزل</option>
+                        <option>استوديو</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="rent-location">الموقع</label>
+                    <input type="text" id="rent-location" placeholder="الشارع، المدينة، الرمز البريدي...">
+                </div>
+                <button class="search-btn" onclick="searchRent()">بحث</button>
+            </div>
+
+            <!-- Sell Form -->
+            <div id="sell-form" class="search-form" style="display: none;">
+                <div class="form-group">
+                    <label for="sell-price">سعر الشقة ($)</label>
+                    <input type="number" id="sell-price" placeholder="أدخل السعر">
+                </div>
+                <div class="form-group">
+                    <label for="sell-location">موقع الشقة</label>
+                    <input type="text" id="sell-location" placeholder="الشارع، المدينة، الرمز البريدي...">
+                </div>
+                <div class="form-group">
+                    <label for="sell-description">الوصف</label>
+                    <textarea id="sell-description" placeholder="صف عقارك..." rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="sell-image">رفع صورة العقار</label>
+                    <input type="file" id="sell-image" class="file-input" accept="image/*">
+                </div>
+                <button class="search-btn" onclick="submitSellRequest()">إرسال طلب البيع</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Quotes Section -->
+    <section class="quotes-section">
+        <div class="container">
+            <h2 class="quotes-title"><b>اقتباسات ملهمة من الحياه</b></h2>
+            <div class="quote-card">
+                <p class="quote-text">"المنزل ليس مجرد مأوى، بل هو مكان تبدأ فيه الأحلام وتنمو فيه الذكريات"</p>
+                <p class="quote-author">- أرسطو</p>
+            </div>
+            <div class="quote-card">
+                <p class="quote-text">"في كل قطعة أرض قصة، وفي كل منزل حكاية، اختر قصتك بحكمة لتكون أجمل الحكايات"</p>
+                <p class="quote-author">- مثل قديم</p>
+            </div>
+            <div class="quote-card">
+                <p class="quote-text">"لا تنتظر الظروف المثالية، ابدأ من حيث أنت واستثمر في مستقبلك، فالعقار شاهد على أحلامك"</p>
+                <p class="quote-author">- خبير استثماري</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Properties Section -->
+    <section class="properties container">
+        <h2 class="section-title">أفضل المنازل في مدينتك</h2>
+        <div class="properties-grid" id="properties-grid">
+            <!-- Property 1 -->
+            <div class="property-card">
+                <div class="property-image">
+                    <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?ixlib=rb-4.0.1&auto=format&fit=crop&w=500&q=60" alt="فيلا فاخرة">
+                </div>
+                <div class="property-info">
+                    <h3>فيلا فاخرة</h3>
+                    <p class="property-location">وسط المدينة، نيويورك</p>
+                    <p>فيلا فاخرة مع وسائل الراحة الحديثة وإطلالات خلابة.</p>
+                    <div class="property-price">$350,000</div>
+                </div>
+            </div>
+
+            <!-- Property 2 -->
+            <div class="property-card">
+                <div class="property-image">
+                    <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.1&auto=format&fit=crop&w=500&q=60" alt="شقة عصرية">
+                </div>
+                <div class="property-info">
+                    <h3>شقة عصرية</h3>
+                    <p class="property-location">وسط المدينة، شيكاغو</p>
+                    <p>شقة عصرية واسعة في قلب المدينة.</p>
+                    <div class="property-price">$180,000</div>
+                </div>
+            </div>
+
+            <!-- Property 3 -->
+            <div class="property-card">
+                <div class="property-image">
+                    <img src="https://images.unsplash.com/photo-1513584684374-8bab748fbf90?ixlib=rb-4.0.1&auto=format&fit=crop&w=500&q=60" alt="منزل عائلي">
+                </div>
+                <div class="property-info">
+                    <h3>منزل عائلي</h3>
+                    <p class="property-location">الضاحية، بوسطن</p>
+                    <p>منزل عائلي مثالي مع حديقة وكراج.</p>
+                    <div class="property-price">$275,000</div>
+                </div>
+            </div>
+
+            <!-- Property 4 -->
+            <div class="property-card">
+                <div class="property-image">
+                    <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?ixlib=rb-4.0.1&auto=format&fit=crop&w=500&q=60" alt="منزل شاطئي">
+                </div>
+                <div class="property-info">
+                    <h3>منزل شاطئي</h3>
+                    <p class="property-location">ميامي بيتش، فلوريدا</p>
+                    <p>عقار خلاب على الشاطئ مع إطلالات على المحيط.</p>
+                    <div class="property-price">$550,000</div>
+                </div>
+            </div>
+
+            <!-- Property 5 -->
+            <div class="property-card">
+                <div class="property-image">
+                    <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?ixlib=rb-4.0.1&auto=format&fit=crop&w=500&q=60" alt="بنتهاوس">
+                </div>
+                <div class="property-info">
+                    <h3>بنتهاوس فاخر</h3>
+                    <p class="property-location">مانهاتن، نيويورك</p>
+                    <p>بنتهاوس مذهل مع إطلالات بانورامية على المدينة.</p>
+                    <div class="property-price">$1,200,000</div>
+                </div>
+            </div>
+
+            <!-- Property 6 -->
+            <div class="property-card">
+                <div class="property-image">
+                    <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.1&auto=format&fit=crop&w=500&q=60" alt="منزل ريفي">
+                </div>
+                <div class="property-info">
+                    <h3>منزل ريفي</h3>
+                    <p class="property-location">منطقة ريفية، تكساس</p>
+                    <p>منزل ريفي هادئ مع حديقة كبيرة.</p>
+                    <div class="property-price">$320,000</div>
+                </div>
+            </div>
+
+            <!-- Property 7 -->
+            <div class="property-card">
+                <div class="property-image">
+                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.1&auto=format&fit=crop&w=500&q=60" alt="شقة استوديو">
+                </div>
+                <div class="property-info">
+                    <h3>شقة استوديو</h3>
+                    <p class="property-location">وسط المدينة، سياتل</p>
+                    <p>شقة استوديو مريحة مثالية للطلاب.</p>
+                    <div class="property-price">$120,000</div>
+                </div>
+            </div>
+
+            <!-- Property 8 -->
+            <div class="property-card">
+                <div class="property-image">
+                    <img src="https://images.unsplash.com/photo-1605146769289-440113cc3d00?ixlib=rb-4.0.1&auto=format&fit=crop&w=500&q=60" alt="كابينة جبلية">
+                </div>
+                <div class="property-info">
+                    <h3>كابينة جبلية</h3>
+                    <p class="property-location">جبال روكي، كولورادو</p>
+                    <p>كابينة جميلة محاطة بالطبيعة.</p>
+                    <div class="property-price">$280,000</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="explore-more">
+            <button class="explore-btn" onclick="goToShoppingPage()">اكتشف المزيد</button>
+        </div>
+    </section>
+
+    <!-- Review Section -->
+    <section class="review-section container">
+        <div class="review-container">
+            <h2 class="review-title">أضف تقييمك وتعليقك</h2>
+            <div class="rating-stars" id="rating-stars">
+                <span class="star" data-rating="1">★</span>
+                <span class="star" data-rating="2">★</span>
+                <span class="star" data-rating="3">★</span>
+                <span class="star" data-rating="4">★</span>
+                <span class="star" data-rating="5">★</span>
+            </div>
+            <form class="review-form" id="review-form">
+                <div class="form-input-group">
+                    <label class="input-label">الاسم الكامل</label>
+                    <div class="input-hint">اكتب اسمك هنا</div>
+                    <input type="text" class="name-input" id="reviewer-name" placeholder="أدخل اسمك الكامل...">
+                </div>
+
+                <div class="form-input-group">
+                    <label class="input-label">التعليق</label>
+                    <div class="input-hint">أضف تعليقك هنا لو سمحت</div>
+                    <textarea
+                            class="review-textarea"
+                            placeholder="اكتب تعليقك وتقييمك للعقار..."
+                            id="review-text"
+                    ></textarea>
+                </div>
+
+                <button type="submit" class="submit-review-btn" id="submit-review-btn" disabled>
+                    إرسال التقييم
+                </button>
+            </form>
+        </div>
+    </section>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-content">
+
+        <!-- عن الشركة -->
+        <div class="footer-section about">
+            <h3>من نحن</h3>
+            <p>
+                شركة عقارية متخصصة في عرض وتسويق العقارات والاستثمارات
+                داخل فلسطين وخارجها، نوفّر لعملائنا حلولًا موثوقة
+                وتجربة رقمية سهلة وآمنة.
+            </p>
+        </div>
+
+        <!-- روابط سريعة -->
+        <div class="footer-section links">
+            <h3>روابط سريعة</h3>
+            <ul>
+                <li><a href="#">الأسئلة الشائعة</a></li>
+                <li><a href="#">سياسة الخصوصية</a></li>
+                <li><a href="#">الشروط والأحكام</a></li>
+                <li><a href="#">الدعم الفني</a></li>
+            </ul>
+        </div>
+
+        <!-- تواصل معنا -->
+        <div class="footer-section contact">
+            <h3>تواصل معنا</h3>
+            <p><i class="fa-solid fa-location-dot"></i> نابلس، فلسطين</p>
+            <p><i class="fa-solid fa-envelope"></i> contact@realestate.com</p>
+            <p><i class="fa-solid fa-phone"></i> ‎+970 522 477 890</p>
+
+            <div class="socials">
+                <i class="fa-brands fa-facebook-f"></i>
+                <i class="fa-brands fa-instagram"></i>
+                <i class="fa-brands fa-x-twitter"></i>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <p>© 2025 شركة العقارات | تصميم محمد العمري & عاصم عصيده</p>
+    </div>
+</footer>
+
+<script src="JavaScript_file/home.js"></script>
+
+</body>
+</html>

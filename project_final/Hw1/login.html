@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ar" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Signup</title>
+    <link rel="stylesheet" href="CssFile/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<!-- الشريط العلوي -->
+<header>
+    <div class="top-bar">
+        <div class="top-bar-left">
+            <div class="logout-section" id="logout-section">
+                <div class="logout-logo">🚪</div>
+                <span class="logout-text">تسجيل الخروج</span>
+            </div>
+
+            <div class="account-section" onclick="goToLoginPage()">
+                <div class="account-logo">👤</div>
+                <span class="account-text">إنشاء حساب</span>
+            </div>
+        </div>
+
+        <div class="top-bar-center">
+            <div class="logo-section" onclick="goToHome()">
+                <div class="home-logo">🏠</div>
+                <span class="home-text">الصفحة الرئيسية</span>
+            </div>
+            <div class="shopping-section" onclick="goToShoppingPage()">
+                <div class="shopping-logo">🛒</div>
+                <span class="shopping-text">التسوق</span>
+            </div>
+        </div>
+
+        <div class="top-bar-right">
+            <div class="featured-text">
+                <span class="featured-logo">🏆</span>
+                عقارات السلطان
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container" id="container">
+    <!-- Sign Up Form -->
+    <div class="form-container sign-up-container">
+        <form id="signupForm">
+            <h1>Create Account</h1>
+            <div class="social-container">
+                <a href="#" class="social"><i class="fab fa-google"></i></a>
+                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <span>or use your email for registration</span>
+            <input type="text" id="signupName" name="name" placeholder="Name" required />
+            <input type="email" id="signupEmail" name="email" placeholder="Email" required />
+            <input type="password" id="signupPassword" name="password" placeholder="Password" required />
+            <input type="password" id="signupConfirmPassword" placeholder="Confirm Password" required />
+            <button type="submit">Sign Up</button>
+            <!-- رسالة النتيجة -->
+            <div id="signupMessage" class="message"></div>
+        </form>
+    </div>
+
+    <!-- Sign In Form -->
+    <div class="form-container sign-in-container">
+        <form id="signinForm">
+            <h1>Sign In</h1>
+            <div class="social-container">
+                <a href="#" class="social">
+                    <i class="fab fa-google"></i>
+                </a>
+                <a href="https://www.facebook.com/share/1BDG7zKWAZ/?mibextid=wwXIfr" class="social">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="http://www.linkedin.com/in/mohammad-al-omari-a80b07387" class="social">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+            </div>
+            <span>or use your account</span>
+            <input type="email" id="email" name="email" placeholder="Email" required />
+            <input type="password" id="password" name="password" placeholder="Password" required />
+            <a href="#" id="forgotPassword">Forgot your password?</a>
+            <button type="submit">Sign In</button>
+            <!-- زر جديد لتسجيل الدخول كمالك -->
+            <button type="button" id="ownerLoginBtn" style="margin-top: 15px">Login as Owner</button>
+            <!-- رسالة النتيجة -->
+            <div id="loginMessage" class="message"></div>
+        </form>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-left">
+                <h1>Welcome Back!</h1>
+                <p>Enter your personal details to use all of site features</p>
+                <button class="ghost" id="signIn">Sign In</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+                <h1>Hello, Friend!</h1>
+                <p>Register with your personal details to use all of site features</p>
+                <button class="ghost" id="signUp">Sign Up</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- نضيف مكتبة jQuery لتسهيل AJAX -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="JavaScript_file/login.js"></script>
+
+</body>
+</html>
